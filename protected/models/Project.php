@@ -77,6 +77,7 @@ class Project extends CActiveRecord
 			'proj_time_manager' => 'Time Manager',
 		);
 	}
+        
 
 	/**
 	 * Retrieves a list of models based on the current search/filter conditions.

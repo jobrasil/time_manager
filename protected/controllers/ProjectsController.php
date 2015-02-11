@@ -20,25 +20,38 @@ class ProjectsController extends Controller {
         $model = new Project();
         $model->unsetAttributes();
 
-        $listStatus = CHtml::listData(Status::model()->findAll(), 'stat_id', 'stat_description');
+        $this->render('index', array(
+            'model' => $model,
+        ));
+    }
+
+    public function actionNew() {
+        $model = new Project();
+        $model->unsetAttributes();
 
         if (isset($_POST['Project'])) {
-            
-            print_r($_POST['Project']);
-            exit;
 
+//            echo "<pre>";
+//            print_r($_POST['Project']);
+//            exit;
             $model->attributes = $_POST['Project'];
+            $model->proj_stat_id = 1; // started
+            $model->proj_user_id = 1;
+//            echo "<pre>";
+//            print_r($model->attributes);
+//            exit;
+
 
             if ($model->save()) {
-                Yii::app()->user->setFlash('success', "Registro criado com sucesso!");
-                $this->redirect(array('visualizar', 'id' => $model->cai_id));
+                Yii::app()->user->setFlash('success', "Registration created!");
+                //$this->redirect(array('visualizar', 'id' => $model->cai_id));
+                $this->redirect(array('index', array()));
             } else {
-                Yii::app()->user->setFlash('error', "Falha ao criar registro!");
+                Yii::app()->user->setFlash('error', "Failed to create registration!");
             }
         }
 
         $this->render('index', array(
-            'listStatus' => $listStatus,
         ));
     }
 
